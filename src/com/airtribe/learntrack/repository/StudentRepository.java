@@ -9,6 +9,12 @@ public class StudentRepository {
     private final List<Student> students = new ArrayList<>();
 
     public void save(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student must not be null.");
+        }
+        if (findById(student.getId()) != null) {
+            throw new IllegalArgumentException("Student with ID " + student.getId() + " already exists.");
+        }
         students.add(student);
     }
 
@@ -27,6 +33,10 @@ public class StudentRepository {
 
     public boolean removeById(int id) {
         Student student = findById(id);
-        return student != null && students.remove(student);
+        if (student == null) {
+            return false;
+        }
+        student.setActive(false);
+        return true;
     }
 }

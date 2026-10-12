@@ -9,6 +9,12 @@ public class EnrollmentRepository {
     private final List<Enrollment> enrollments = new ArrayList<>();
 
     public void save(Enrollment enrollment) {
+        if (enrollment == null) {
+            throw new IllegalArgumentException("Enrollment must not be null.");
+        }
+        if (findById(enrollment.getId()) != null) {
+            throw new IllegalArgumentException("Enrollment with ID " + enrollment.getId() + " already exists.");
+        }
         enrollments.add(enrollment);
     }
 

@@ -45,6 +45,9 @@ public class EnrollmentService {
     }
 
     public void updateStatus(int enrollmentId, EnrollmentStatus status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Enrollment status must not be null.");
+        }
         Enrollment enrollment = enrollmentRepository.findById(enrollmentId);
         if (enrollment == null) {
             throw new EntityNotFoundException("Enrollment with ID " + enrollmentId + " was not found.");
